@@ -1,7 +1,12 @@
 class UsersController < ApplicationController
 
+    def index
+        users = User.all 
+        render json: users
+    end
+
     def show
-        user = User.where(["user_name=?",params[:id]])
+        user = User.where(["user_name=?",params[:id]]).first
         render json: user
     end
 
