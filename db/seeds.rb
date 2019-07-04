@@ -5,3 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+ExerciseType.create(detail:"light")
+ExerciseType.create(detail:"moderate")
+ExerciseType.create(detail:"intense")
+
+MealType.create(detail:'angelic')
+MealType.create(detail:'meh')
+MealType.create(detail:'guilty')
