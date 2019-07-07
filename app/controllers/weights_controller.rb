@@ -1,10 +1,9 @@
 class WeightsController < ApplicationController
 
     def index
-        user = User.find([params[:user_id]])
+        user = User.where(["user_name=?",params[:id]]).first
         weights = user.weights
         render json: weights
-
     end
 
     def show
@@ -17,12 +16,13 @@ class WeightsController < ApplicationController
         render json: weight
     end
 
-    def delete
+    def destroy
         weight = Weight.find(params[:id]);
-        user=weight.user;
+        # Re-rendering the weights is being handled in the form
+        # user=weight.user;
         weight.destroy;
-        weights = user.weights
-        render json: weights
+        # weights = user.weights
+        # render json: weights
     end
     
     def update
@@ -38,6 +38,7 @@ private
 
     def weight_params
         params.require(:weight).permit(:id,
+            :user_id,
             :weight_kg,
             :weight_date)
     end

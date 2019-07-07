@@ -8,6 +8,10 @@ class UsersController < ApplicationController
     def show
         user = User.where(["user_name=?",params[:id]]).first
         render json: user
+       
+        # Current design seperates the gets ... ?? best practice ??
+        #     ,
+        # include: [:weights]
     end
 
     def create
