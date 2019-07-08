@@ -2,14 +2,13 @@ require 'net/http'
 require 'json'
 require 'net/https'
 
-
-class NutritionixAPI
+class Nutritionixapi
 
   # Please note the NUTRIONIX_APIKEY and the NUTRIONIX_APPID need to be set 
 # as environment variables, that you can get from nutrionix as part of their developer
 # program
 
-  def self.get_mealinfo(detail)
+  def get_mealinfo(detail)
 # Returns a hash of individual components of a free text get_meal
 # using the nutrionix api
 
@@ -29,10 +28,10 @@ class NutritionixAPI
 
   end
 
-  def self.get_exerciseinfo( detail, gender, weight_kg, height_cm, age_years )
+  def get_exerciseinfo( detail, gender, weight_kg, height_cm, age_years )
 # Returns details of free text exerise.
 # It requires a persons details to calculate calorie burn
-# Possibly should just use a user object, and get the rest of the stuff internally
+# NEED TO CHANGE TO TAKE IN THE USER OBJECT
 
     @body = {
       "query" => detail,
