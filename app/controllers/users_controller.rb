@@ -31,11 +31,11 @@ private
 
     def user_params
         params.require(:user).permit(
-                    :username,
+                    :user_name,
                     :email,
-                    :firstname,
+                    :name,
                     :dob,
-                    :height,
+                    :height_cm,
                     :password,
                     :weight,
                     :gender)
