@@ -58,7 +58,9 @@ class User < ActiveRecord::Base
     # We are mapping all of the meals on a day to get all of the meal meal_details
     # this returns an array of arrays .... so we need to flatten it to allow us
     # to get to the attributes/methods in the detail class.
-    mealdiary( date ).map {|m| m.meal_details }.flatten.map {|md| md.calories }.sum
+    # MM 7/7/19 Modified to use the new attributes from the array as 
+    # we now allow a user to change the serving_qty
+    mealdiary( date ).map {|m| m.meal_details }.flatten.map {|md| md.nf_calories * md.serving_qty }.sum
   end
 
   def mealdiarytype( date = Date.current )
