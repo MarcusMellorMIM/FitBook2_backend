@@ -12,8 +12,27 @@ class WeightsController < ApplicationController
     end
 
     def create
-        weight = Weight.create weight_params
+    # As we want to manipulate weight_date ... using the permitted params method
+    # seems to cause issues - ideally I would like to set the date, and use weight_params
+        user_id = params[:user_id]
+        weight_kg=params[:weight_kg]
+    # Dodgy method of sorting out the date
+        weight_date_d=params[:weight_date_d];
+        weight_date_t=params[:weight_date_t];
+        if weight_date_d==nil || weight_date_d==""
+            weight_date_d=Date.current.to_s
+        end
+        if weight_date_t==nil || weight_date_t==""
+            weight_date_t=Time.current.strftime("%H:%M")
+        end        
+        weight_date = (weight_date_d + ' ' + weight_date_t).to_datetime
+
+        weight = Weight.create( user_id:user_id,
+                    weight_kg:weight_kg,
+                    weight_date:weight_date)
+
         render json: weight
+
     end
 
     def destroy
@@ -26,8 +45,22 @@ class WeightsController < ApplicationController
     end
     
     def update
+# Really dodgy method of dealing with dates ... there has to be a better way
         weight = Weight.find(params[:id])
-        weight.assign_attributes(weight_params)
+        weight_kg = params[:weight_kg]
+        weight_date_d = params[:weight_date_d]
+        weight_date_t = params[:weight_date_t]
+        if weight_date_d==nil || weight_date_d==""
+            weight_date_d=Date.current.to_s
+        end
+        if weight_date_t==nil || weight_date_t==""
+            weight_date_t=Time.current.strftime("%H:%M")
+        end        
+        weight_date = (weight_date_d + ' ' + weight_date_t).to_datetime
+
+        weight.assign_attributes( weight_kg:weight_kg,
+                    weight_date:weight_date)
+
         if weight.valid?
             weight.save
         end

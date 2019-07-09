@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   resources :weights, only: [ :show, :create, :destroy, :update]
   resources :meals, only: [ :show, :create, :destroy, :update]
 
-  get "/weights/user/:id", to: "weights#index", as: "index"
+  get "/weights/user/:id", to: "weights#index", as: "weightindex"
+  get "/meals/user/:id", to: "meals#index", as: "mealindex"
+
   post "/api/food", to: "api#food", as: "apifood"
   post "/api/exercise", to: "api#exercise", as: "apiexercise"
 end
