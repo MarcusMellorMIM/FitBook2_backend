@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::API
 
-    def encode_token(payload)
+    def issue_token(payload)
         
         JWT.encode(payload, ENV['FITBOOK_SECRET'])
        
@@ -23,7 +23,7 @@ class ApplicationController < ActionController::API
         decoded_token = decode_token(token)
         user = User.find(decoded_token["user_id"])
         user_hash = {
-          username: user[:username],
+          user_name: user[:user_name],
           id: user[:id]
         }
       end
