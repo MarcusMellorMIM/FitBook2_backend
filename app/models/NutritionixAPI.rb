@@ -28,17 +28,17 @@ class Nutritionixapi
 
   end
 
-  def get_exerciseinfo( detail, gender, weight_kg, height_cm, age_years )
+  def get_exerciseinfo( detail, user )
 # Returns details of free text exerise.
 # It requires a persons details to calculate calorie burn
 # NEED TO CHANGE TO TAKE IN THE USER OBJECT
 
     @body = {
       "query" => detail,
-      "gender" => gender,
-      "weight_kg" => weight_kg,
-      "height_cm" => height_cm,
-      "age" => age_years
+      "gender" => user.gender,
+      "weight_kg" => user.latest_weight_kg,
+      "height_cm" => user.height_cm,
+      "age" => user.age_years
     }.to_json
 
     uri = URI.parse("https://trackapi.nutritionix.com/v2/natural/exercise")

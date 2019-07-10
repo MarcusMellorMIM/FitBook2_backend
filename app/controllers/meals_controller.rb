@@ -46,7 +46,7 @@ class MealsController < ApplicationController
         meal = Meal.create(user_id:user_id, detail:detail, meal_type_id:meal_type_id, meal_date:meal_date )
 
         # Now create the meal detail records from the super huuuuge hash
-        params[:food][:details].map { |f|            
+        params[:food][:meal_details].map { |f|            
             mealdetail=MealDetail.create(
                 meal_id:meal.id,
                 food_name:f[:food_name],
@@ -58,7 +58,8 @@ class MealsController < ApplicationController
             )
         }
 
-        render json: meal
+        render json: meal, except: [:created_at],
+                include: :meal_details
 
     end
 
