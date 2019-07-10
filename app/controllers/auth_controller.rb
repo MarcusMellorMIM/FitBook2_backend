@@ -5,7 +5,7 @@ class AuthController < ApplicationController
       if user && user.authenticate(params[:password])
         payload = {user_id: user.id}
         token = issue_token(payload)
-        render json: { jwt: token, user_name: user.user_name }
+        render json: { jwt: token, user: user }
       else
         render json: { error: "The token couldn't be created. Login failed."}
       end
