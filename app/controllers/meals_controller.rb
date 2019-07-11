@@ -95,8 +95,6 @@ class MealsController < ApplicationController
                 meal_type_id=1
             end
 
-            byebug
-
             # Update the meal
             meal.update( detail:detail, meal_type_id:meal_type_id, meal_date:meal_date )
             if meal.valid?
