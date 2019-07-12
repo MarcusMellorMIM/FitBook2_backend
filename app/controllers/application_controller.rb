@@ -18,9 +18,11 @@ class ApplicationController < ActionController::API
 
       def current_user
         token = get_token
-        decoded_token = decode_token(token)
-        user = User.find(decoded_token["user_id"])
-        return user
+        if token
+          decoded_token = decode_token(token)
+          user = User.find(decoded_token["user_id"])
+          return user
+        end
       end
       
       def logged_in

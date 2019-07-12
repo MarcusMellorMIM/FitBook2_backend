@@ -1,13 +1,11 @@
 class UsersController < ApplicationController
 
-    def index
-        users = User.all 
-        render json: users
-    end
-
     def show
-        user = User.where(["user_name=?",params[:id]]).first
-        render json: user
+        user = current_user
+        # user = User.where(["user_name=?",params[:id]]).first
+        if user
+            render json: user
+        end
        
         # Current design seperates the gets ... ?? best practice ??
         #     ,
@@ -20,17 +18,20 @@ class UsersController < ApplicationController
     end
 
     def update
-        user.assign_attributes(user_params)
-        if user.valid?
-            user.save
+        user = current_user
+        if current_user
+            user.assign_attributes(user_params)
+            if user.valid?
+                user.save
+            end
+            render json: user
         end
-        render json: user
     end
 
 private
 
     def user_params
-        params.require(:user).permit(
+        params.require(:detail).permit(
                     :user_name,
                     :email,
                     :name,
@@ -41,4 +42,4 @@ private
                     :gender)
         end
 
-    end
+end
